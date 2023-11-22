@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    container_name: "redis"
